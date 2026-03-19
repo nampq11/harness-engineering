@@ -1,0 +1,38 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agent-scripts",
+  "owner": {
+    "name": "nampham1106",
+    "email": "nampham11062002@gmail.com"
+  },
+  "metadata": {
+    "description": "A collection of Claude Code plugins for clean coding principles and productivity tools",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "harness-engineering",
+      "description": "",
+      "version": "0.0.1",
+      "author": {
+        "name": "nampham1106",
+        "email": "nampham11062002@gmail.com"
+      },
+      "source": "./plugins/harness-engineering",
+      "category": "development",
+      "keywords": ["harness", "engineering", "runtime system", "AI agents"]
+    },
+    {
+      "name": "improve-claude-md",
+      "description": "Rewrite a CLAUDE.md file using <important if> blocks to improve instruction adherence",
+      "version": "1.0.0",
+      "author": {
+        "name": "nampham1106",
+        "email": "nampham11062002@gmail.com"
+      },
+      "source": "./plugins/improve-claude-md",
+      "category": "productivity",
+      "keywords": ["claude-md", "instructions", "important-if", "claude-code"]
+    }
+  ]
+}

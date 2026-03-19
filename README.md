@@ -1,4 +1,4 @@
-# harness-engineering
+# agent-scripts
 
 > Boostrap and enforce runtime system for AI agents
 
@@ -14,9 +14,9 @@ A Claude Code plugin that helps you set up new projects or add enforcement tooli
 
 ## Installation
 
-1. Clone this repository to `~/.claude/plugins/harness-engineering`:
+1. Clone this repository to `~/.claude/plugins/agent-scripts`:
 ```bash
-git clone https://github.com/nampq/harness-engineering.git ~/.claude/plugins/harness-engineering
+git clone https://github.com/nampq/agent-scripts.git ~/.claude/plugins/agent-scripts
 ```
 
 2. Restart Claude Code
