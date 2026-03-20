@@ -1,33 +1,33 @@
-# Tại sao Structure quan trọng với AI
+# Why Structure Matters for AI
 
-Reference này giải thích kỹ thuật đằng sau tại sao structured docs giúp AI hoạt động tốt hơn. Dùng để giải thích cho user khi họ hỏi "tại sao phải viết như vậy?"
+This reference explains the technical reasons why structured docs help AI perform better. Use this to explain to users when they ask "why do I have to write it this way?"
 
 ---
 
-## 1. Attention Weights không đều
+## 1. Attention Weights Are Uneven
 
-LLM không đọc như người — từ trên xuống, từng dòng. LLM xử lý tất cả tokens cùng lúc thông qua cơ chế attention, và **gán trọng số khác nhau** cho từng phần.
+LLMs don't read like humans — top to bottom, line by line. LLMs process all tokens simultaneously through attention mechanism, and **assign different weights** to different parts.
 
-| Element | Mức attention |
-|---------|--------------|
-| `# Headings` | Rất cao |
-| Tables | Cao |
-| Code blocks | Cao |
-| **Bold text** | Trung bình-cao |
-| Văn xuôi thường | Thấp |
+| Element | Attention level |
+|---------|----------------|
+| `# Headings` | Very high |
+| Tables | High |
+| Code blocks | High |
+| **Bold text** | Medium-high |
+| Regular prose | Low |
 
-**Hệ quả thực tế:** Config values chôn trong paragraph dài → AI có thể bỏ sót hoặc extract sai. Cùng config đó trong table → AI extract chính xác gần như 100%.
+**Real-world impact:** Config values buried in long paragraphs → AI may miss or extract incorrectly. Same config in table → AI extracts with near 100% accuracy.
 
 ---
 
 ## 2. Token Efficiency
 
-Cùng thông tin, cách trình bày khác nhau tốn token khác nhau. Token = chi phí và context window.
+Same information, different presentation costs different tokens. Token = cost and context window.
 
-**Ví dụ so sánh:**
+**Comparison example:**
 
-❌ Văn xuôi (~47 tokens):
-> "Queue có max batch size là 1, nghĩa là xử lý từng message một. Timeout là 5 giây, retry tối đa 2 lần trước khi vào dead letter queue vilab-ai-dlq."
+❌ Prose (~47 tokens):
+> "Queue has max batch size of 1, meaning it processes one message at a time. Timeout is 5 seconds, max 2 retries before entering dead letter queue vilab-ai-dlq."
 
 ✅ Table (~28 tokens):
 | Config | Value |
@@ -37,57 +37,57 @@ Cùng thông tin, cách trình bày khác nhau tốn token khác nhau. Token = c
 | Max retries | 2 |
 | DLQ | vilab-ai-dlq |
 
-Table tiết kiệm **~40% tokens** và AI extract chính xác hơn vì structure rõ ràng.
+Table saves **~40% tokens** and AI extracts more accurately because structure is clear.
 
 ---
 
-## 3. Chunking và RAG
+## 3. Chunking and RAG
 
-Khi AI tools như Cursor, Claude Code, hay các RAG systems đọc docs, chúng phải chia nhỏ (chunk) content để fit vào context window.
+When AI tools like Cursor, Claude Code, or RAG systems read docs, they must split (chunk) content to fit into context window.
 
-**Vấn đề với doc quá dài:**
-- Doc 10,000 tokens bị cắt thành nhiều chunks
-- Context bị mất ở chỗ cắt
-- AI đọc chunk giữa chừng, thiếu overview và cross-references
+**Problem with docs too long:**
+- 10,000 token doc gets split into multiple chunks
+- Context lost at split points
+- AI reads middle chunk, missing overview and cross-references
 
-**Giải pháp:**
-- Giữ mỗi doc ở 800–1500 tokens
-- Mỗi doc = 1 domain = 1 chunk
-- AI đọc trọn vẹn 1 domain, không bị cắt ngang
+**Solution:**
+- Keep each doc at 800–1500 tokens
+- Each doc = 1 domain = 1 chunk
+- AI reads complete domain, no cutoff
 
 ---
 
-## 4. Predictable Structure giúp Navigation
+## 4. Predictable Structure Helps Navigation
 
-Khi tất cả docs có cùng skeleton (Overview → Diagram → Sections → File Ref → Cross-Refs), AI học được pattern:
+When all docs have same skeleton (Overview → Diagram → Sections → File Ref → Cross-Refs), AI learns the pattern:
 
-- "Cần biết files liên quan → tìm ## File Reference"
-- "Cần biết config values → tìm table trong numbered sections"
-- "Cần context rộng hơn → follow Cross-References"
+- "Need to know related files → find ## File Reference"
+- "Need to know config values → find table in numbered sections"
+- "Need broader context → follow Cross-References"
 
-Không predictable → AI phải "đoán" structure mỗi doc → tốn attention, dễ sai.
+Not predictable → AI must "guess" structure per doc → wastes attention, prone to errors.
 
 ---
 
 ## 5. Cross-References = Navigation Graph
 
-AI agents không đọc docs theo thứ tự. Chúng search và jump theo context.
+AI agents don't read docs in order. They search and jump by context.
 
-Cross-References tạo ra **navigation graph** để AI có thể:
-1. Đọc doc A, thấy cần context thêm
-2. Follow Cross-Reference đến doc B
-3. Không cần search lại từ đầu
+Cross-References create **navigation graph** so AI can:
+1. Read doc A, see need for more context
+2. Follow Cross-Reference to doc B
+3. No need to search from beginning
 
-Thiếu Cross-References → mỗi doc là hòn đảo → AI bị lost khi cần cross-domain context.
+Missing Cross-References → each doc is an island → AI gets lost when needing cross-domain context.
 
 ---
 
-## Tóm tắt
+## Summary
 
-| Vấn đề | Giải pháp |
-|--------|----------|
-| AI bỏ sót info trong văn xuôi | Dùng tables và headings |
-| Doc quá dài → RAG chunking lỗi | Giữ 800-1500 tokens/doc |
-| AI không biết tìm gì ở đâu | Skeleton nhất quán + SITE.md index |
-| AI mất context khi cần cross-domain | Cross-References ở cuối mỗi doc |
-| Token tốn quá nhiều | Table thay vì văn xuôi cho structured data |
+| Problem | Solution |
+|---------|----------|
+| AI misses info in prose | Use tables and headings |
+| Doc too long → RAG chunking errors | Keep 800-1500 tokens/doc |
+| AI doesn't know where to find what | Consistent skeleton + SITE.md index |
+| AI loses context when needing cross-domain | Cross-References at end of each doc |
+| Token cost too high | Tables instead of prose for structured data |

@@ -1,17 +1,17 @@
 # Example: Complete Document
 
-Đây là ví dụ một document hoàn chỉnh, dựa trên ví dụ thực tế từ blog về vibe coding docs.
+This is an example of a complete document, based on a real example from the vibe coding docs blog.
 
 ---
 
-## Ví dụ: 02-ingest-worker.md
+## Example: 02-ingest-worker.md
 
 ```markdown
 # 02-ingest-worker
 
-Cloudflare Worker xử lý content ingestion: nhận URLs/text,
-fetch content, generate AI recap, upload media, push to GitHub.
-Worker này là core processing layer giữa input sources và storage.
+Cloudflare Worker handles content ingestion: receives URLs/text,
+fetches content, generates AI recap, uploads media, pushes to GitHub.
+This worker is the core processing layer between input sources and storage.
 
 ## System Diagram
 
@@ -36,7 +36,7 @@ flowchart TB
 
 ## 2. Content Fetching
 
-Worker fetch content từ nhiều nguồn:
+Worker fetches content from multiple sources:
 
 | Source | Method | Module |
 |--------|--------|--------|
@@ -78,20 +78,20 @@ Worker fetch content từ nhiều nguồn:
 |-----|----------|
 | [01-content-pipeline](01-content-pipeline.md) | Parent flow — this worker is step 2 |
 | [03-telegram-bot](03-telegram-bot.md) | Input source via `/telegram` endpoint |
-| [04-ai-providers](04-ai-providers.md) | AI services used in step Fetch→AI |
-| [06-media-storage](06-media-storage.md) | R2 storage used in step AI→Media |
+| [04-ai-providers](04-ai-providers.md) | AI services used in Fetch→AI step |
+| [06-media-storage](06-media-storage.md) | R2 storage used in AI→Media step |
 ```
 
 ---
 
-## Tại sao example này tốt
+## Why this example is good
 
-| Tiêu chí | ✅ Đạt được |
+| Criteria | ✅ Achieved |
 |---------|-----------|
-| Overview rõ ràng | 2 câu, mô tả đủ role trong system |
-| Diagram có | Flowchart TB, 7 nodes rõ ràng |
-| Tables cho config | Queue config ở table, không phải văn xuôi |
-| File Reference đầy đủ | 5 files với purpose rõ |
-| Cross-References có context | Không chỉ link mà còn giải thích relation |
-| Token count | ~950 tokens — vừa 1 RAG chunk |
-| Single responsibility | Mô tả được trong 1 câu không có "và" |
+| Clear overview | 2 sentences, describes role in system |
+| Has diagram | Flowchart TB, 7 clear nodes |
+| Tables for config | Queue config in table, not prose |
+| Complete File Reference | 5 files with clear purposes |
+| Cross-References with context | Not just links but explains relations |
+| Token count | ~950 tokens — fits in 1 RAG chunk |
+| Single responsibility | Can be described in 1 sentence without "and" |

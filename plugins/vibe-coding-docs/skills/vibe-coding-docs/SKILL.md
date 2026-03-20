@@ -1,53 +1,53 @@
 ---
 name: vibe-coding-docs
-description: "Viết, tổ chức và refactor documentation cho dự án vibe coding sao cho cả người và AI agent (Cursor, Claude Code, v.v.) đều đọc và làm việc hiệu quả. Dùng skill này BẤT CỨ KHI NÀO người dùng muốn: tạo docs cho project mới, refactor docs cũ, hỏi \"AI không hiểu codebase của mình\", hỏi về cách viết context cho AI, hoặc nhắc đến \"documentation\", \"context cho AI\", \"vibe coding docs\", \"structured docs\", \"docs cho Cursor/Claude Code\". Trigger ngay cả khi người dùng chỉ nói \"giúp tao viết docs\", \"AI cứ trả lời sai\", hoặc \"cần document codebase\"."
+description: "Write, organize, and refactor documentation for vibe coding projects optimized for both humans and AI agents (Cursor, Claude Code, etc.). Use this skill WHENEVER the user wants to: create docs for a new project, refactor old docs, asks \"AI doesn't understand my codebase\", asks about writing context for AI, or mentions \"documentation\", \"context for AI\", \"vibe coding docs\", \"structured docs\", \"docs for Cursor/Claude Code\". Trigger even when the user just says \"help me write docs\", \"AI keeps answering wrong\", or \"need to document codebase\"."
 ---
 
 # Vibe Coding Docs Skill
 
-Skill này giúp tạo documentation có cấu trúc cho dự án vibe coding, được tối ưu để cả người lẫn AI agent (Cursor, Claude Code, Windsurf, v.v.) đều có thể navigate và extract thông tin chính xác.
+This skill helps create structured documentation for vibe coding projects, optimized for both humans and AI agents (Cursor, Claude Code, Windsurf, etc.) to navigate and extract accurate information.
 
 ## Core Philosophy
 
-Documentation tốt cho AI không phải là viết nhiều — mà là viết có **structure dự đoán được**. LLM xử lý tokens thông qua attention weights: headings, tables, code blocks nhận attention cao hơn văn xuôi thông thường. Thông tin chôn trong paragraphs dài dễ bị AI bỏ sót hoặc trích xuất sai.
+Good AI documentation isn't about writing more — it's about writing with **predictable structure**. LLMs process tokens through attention weights: headings, tables, and code blocks receive higher attention than regular prose. Information buried in long paragraphs is easily missed or incorrectly extracted by AI.
 
-**Công thức phân domain:**
+**Domain partitioning formula:**
 ```
 Domain = Responsibility × Change-frequency × Dependency-level
 ```
 
-- **Responsibility**: Mỗi doc chỉ làm MỘT việc. Test: mô tả doc trong 1 câu không có chữ "và".
-- **Change-frequency**: Những thứ thay đổi cùng nhau → ở cùng doc.
-- **Dependency-level**: Số thứ tự thể hiện độ phụ thuộc. Số nhỏ = foundation, số lớn = surface.
+- **Responsibility**: Each doc does ONE thing. Test: describe the doc in one sentence without the word "and".
+- **Change-frequency**: Things that change together → go in the same doc.
+- **Dependency-level**: Number indicates dependency level. Lower number = foundation, higher number = surface.
 
 ---
 
 ## Workflow
 
-### Bước 1: Inventory & Cluster
+### Step 1: Inventory & Cluster
 
-Trước tiên, hỏi người dùng (hoặc phân tích codebase nếu có) để lấy:
-- Danh sách tất cả components/modules trong system
-- Tech stack đang dùng
-- Quy mô project (số files, số modules)
+First, ask the user (or analyze the codebase if available) to get:
+- List of all components/modules in the system
+- Tech stack being used
+- Project scale (number of files, number of modules)
 
-Sau đó cluster theo responsibility. Dùng 4 câu hỏi phân loại:
+Then cluster by responsibility. Use 4 questions to classify:
 
-| Câu hỏi | Mục đích |
-|---------|---------|
-| **Change Q**: "Đổi X thì có phải đổi Y không?" | X và Y cùng doc nếu có |
-| **Break Q**: "X hỏng thì gì hỏng theo?" | Xác định số thứ tự (càng nhiều → số nhỏ) |
-| **Explain Q**: "Giải thích concept này trong 3 phút được không?" | Nếu không → chia nhỏ |
-| **Find Q**: "Người cần tìm info này sẽ tìm ở đâu?" | Doc phải match mental model |
+| Question | Purpose |
+|----------|---------|
+| **Change Q**: "If you change X, do you have to change Y?" | X and Y belong in same doc if yes |
+| **Break Q**: "If X breaks, what else breaks?" | Determine order (more breakage → lower number) |
+| **Explain Q**: "Can you explain this concept in 3 minutes?" | If no → split it |
+| **Find Q**: "Where would someone look for this info?" | Doc must match mental model |
 
-### Bước 2: Tạo cấu trúc file
+### Step 2: Create file structure
 
-Đặt tên file theo pattern: `NN-domain-name.md`
+Name files following pattern: `NN-domain-name.md`
 
-Ví dụ cấu trúc điển hình:
+Example typical structure:
 ```
 docs/
-├── 00-architecture-overview.md   # Foundation, mọi thứ phụ thuộc vào đây
+├── 00-architecture-overview.md   # Foundation, everything depends on this
 ├── 01-[core-flow].md
 ├── 02-[main-worker].md
 ├── 03-[interface-layer].md
@@ -56,25 +56,25 @@ docs/
 ├── 06-[storage].md
 ├── 07-[frontend].md
 ├── 08-[deployment].md
-└── SITE.md                        # Index, liệt kê tất cả docs
+└── SITE.md                        # Index, lists all docs
 ```
 
-Số thứ tự thể hiện dependency: 00 là foundation (phụ thuộc bởi nhiều thứ nhất), số lớn là surface.
+The numbering reflects dependency: 00 is foundation (depended on by most things), higher numbers are surface.
 
-### Bước 3: Viết từng doc theo skeleton
+### Step 3: Write each doc following skeleton
 
-Mỗi doc PHẢI theo skeleton này (xem `references/doc-skeleton.md`):
+Each doc MUST follow this skeleton (see `references/doc-skeleton.md`):
 
 ```markdown
 # NN-domain-name
 
-{2-3 câu overview: đây là gì, tại sao nó tồn tại}
+{2-3 sentence overview: what this is, why it exists}
 
 ## System Diagram
 {Mermaid diagram}
 
 ## 1. First Section
-{Bảng cho config/data, không dùng văn xuôi}
+{Table for config/data, avoid prose}
 
 ## 2. Second Section
 {...}
@@ -88,43 +88,43 @@ Mỗi doc PHẢI theo skeleton này (xem `references/doc-skeleton.md`):
 |-----|----------|
 ```
 
-**Quy tắc quan trọng:**
-- Config values, parameters, routes → **luôn dùng table**, không chôn trong văn xuôi
-- Mỗi doc giữ ở **800–1500 tokens** để vừa 1 RAG chunk
-- Luôn có **Cross-References** để AI navigate được giữa các docs
+**Important rules:**
+- Config values, parameters, routes → **always use tables**, don't bury in prose
+- Keep each doc at **800–1500 tokens** to fit in one RAG chunk
+- Always include **Cross-References** so AI can navigate between docs
 
-### Bước 4: Tạo SITE.md (index)
+### Step 4: Create SITE.md (index)
 
-SITE.md là bản đồ để AI biết tìm gì ở đâu. Xem template ở `references/site-template.md`.
+SITE.md is the map so AI knows where to find what. See template at `references/site-template.md`.
 
-### Bước 5: Validate
+### Step 5: Validate
 
-Checklist trước khi xong:
-- [ ] Mỗi doc có overview 2-3 câu?
-- [ ] Mỗi doc có Mermaid diagram?
-- [ ] Config/data trong tables, không trong văn xuôi?
-- [ ] Tất cả có File Reference?
-- [ ] Tất cả có Cross-References?
-- [ ] SITE.md đã được cập nhật?
-- [ ] Mỗi doc có mô tả được trong 1 câu không có chữ "và"?
-
----
-
-## Anti-patterns cần tránh
-
-| Anti-pattern | Vấn đề | Giải pháp |
-|-------------|--------|-----------|
-| Tổ chức theo file type (models.md, controllers.md) | Feature span nhiều file types, phải nhảy qua lại | Tổ chức theo domain/responsibility |
-| Sắp xếp alphabet | Không có learning path | Sắp xếp theo dependency level |
-| Một mega-doc (README.md chứa tất cả) | Không chunk được, không tìm được | Tách thành nhiều docs nhỏ |
-| Quá nhiều văn xuôi | AI khó extract, tốn tokens | Dùng tables cho structured data |
-| Không có Cross-References | Mỗi doc là hòn đảo | Luôn link đến related docs |
+Checklist before finishing:
+- [ ] Each doc has 2-3 sentence overview?
+- [ ] Each doc has Mermaid diagram?
+- [ ] Config/data in tables, not in prose?
+- [ ] All have File Reference?
+- [ ] All have Cross-References?
+- [ ] SITE.md has been updated?
+- [ ] Each doc can be described in one sentence without "and"?
 
 ---
 
-## Khi nào đọc reference files
+## Anti-patterns to avoid
 
-- Cần template đầy đủ cho một doc → đọc `references/doc-skeleton.md`
-- Cần tạo SITE.md index → đọc `references/site-template.md`
-- Cần ví dụ doc hoàn chỉnh → đọc `references/example-doc.md`
-- Cần hiểu tại sao table tốt hơn văn xuôi (để giải thích cho user) → đọc `references/why-structure.md`
+| Anti-pattern | Problem | Solution |
+|-------------|---------|----------|
+| Organize by file type (models.md, controllers.md) | Feature spans multiple file types, must jump around | Organize by domain/responsibility |
+| Alphabetical sorting | No learning path | Sort by dependency level |
+| One mega-doc (README.md contains everything) | Can't chunk, can't find anything | Split into multiple small docs |
+| Too much prose | AI can't extract, wastes tokens | Use tables for structured data |
+| No Cross-References | Each doc is an island | Always link to related docs |
+
+---
+
+## When to read reference files
+
+- Need full template for a doc → read `references/doc-skeleton.md`
+- Need to create SITE.md index → read `references/site-template.md`
+- Need complete doc example → read `references/example-doc.md`
+- Need to understand why tables are better than prose (to explain to user) → read `references/why-structure.md`

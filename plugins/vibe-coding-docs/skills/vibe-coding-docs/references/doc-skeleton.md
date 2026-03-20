@@ -1,6 +1,6 @@
 # Doc Skeleton Template
 
-Đây là skeleton chuẩn cho mọi document trong hệ thống vibe coding docs.
+This is the standard skeleton for every document in the vibe coding docs system.
 
 ---
 
@@ -9,8 +9,8 @@
 ```markdown
 # NN-domain-name
 
-{2-3 câu mô tả: đây là gì, tại sao nó tồn tại trong system này.
-Không dùng bullet list ở đây — viết câu hoàn chỉnh.}
+{2-3 sentence description: what this is, why it exists in this system.
+Don't use bullet lists here — write complete sentences.}
 
 ## System Diagram
 
@@ -20,32 +20,32 @@ flowchart TB
     B --> C[Output]
 ```
 
-## 1. {Tên Section 1}
+## 1. {Section 1 Name}
 
-{Mô tả ngắn section này làm gì}
+{Brief description of what this section does}
 
 | Column 1 | Column 2 | Column 3 |
 |----------|----------|----------|
 | value    | value    | value    |
 
-## 2. {Tên Section 2}
+## 2. {Section 2 Name}
 
-{Tiếp tục với numbered sections}
+{Continue with numbered sections}
 
 | Config | Value |
 |--------|-------|
 | key    | value |
 
-## 3. {Tên Section 3 nếu cần}
+## 3. {Section 3 Name if needed}
 
-{Chỉ thêm section nếu thực sự cần thiết}
+{Only add section if truly necessary}
 
 ## File Reference
 
 | File | Purpose |
 |------|---------|
-| `src/module.ts` | Mô tả ngắn |
-| `src/other.ts`  | Mô tả ngắn |
+| `src/module.ts` | Brief description |
+| `src/other.ts`  | Brief description |
 
 ## Cross-References
 
@@ -57,48 +57,48 @@ flowchart TB
 
 ---
 
-## Hướng dẫn từng phần
+## Section-by-section guide
 
-### Overview (2-3 câu)
-- Câu 1: Đây là gì (component/module/service gì)
-- Câu 2: Nó làm gì / tại sao cần nó
-- Câu 3 (optional): Cách nó fit vào system lớn hơn
+### Overview (2-3 sentences)
+- Sentence 1: What this is (component/module/service)
+- Sentence 2: What it does / why it's needed
+- Sentence 3 (optional): How it fits into the larger system
 
-**Tốt:** "Cloudflare Worker xử lý content ingestion: nhận URLs/text, fetch content, generate AI recap, upload media, push to GitHub."
+**Good:** "Cloudflare Worker handles content ingestion: receives URLs/text, fetches content, generates AI recap, uploads media, pushes to GitHub."
 
-**Không tốt:** "Module này có nhiều chức năng bao gồm việc xử lý input và output cũng như kết nối với các service khác trong hệ thống."
+**Not good:** "This module has many functions including processing input and output as well as connecting to other services in the system."
 
 ### System Diagram
-- Dùng Mermaid `flowchart TB` hoặc `flowchart LR`
-- Chỉ include các nodes quan trọng nhất (5-10 nodes)
-- Tên nodes phải khớp với terminology trong sections bên dưới
+- Use Mermaid `flowchart TB` or `flowchart LR`
+- Only include the most important nodes (5-10 nodes)
+- Node names must match terminology in sections below
 
 ### Sections (numbered)
-- **Luôn dùng số**: "## 1.", "## 2.", không phải "## Routes", "## Config"
-- **Tên section mô tả nội dung**: "## 1. HTTP Routes", "## 2. Queue Processing"
-- **Config và data → tables, không phải lists hay văn xuôi**
+- **Always use numbers**: "## 1.", "## 2.", not "## Routes", "## Config"
+- **Section names describe content**: "## 1. HTTP Routes", "## 2. Queue Processing"
+- **Config and data → tables, not lists or prose**
 
 ### File Reference
-- List tất cả files liên quan trực tiếp đến domain này
-- Dùng backticks cho file paths
-- Purpose phải ngắn gọn (< 10 words)
+- List all files directly related to this domain
+- Use backticks for file paths
+- Purpose must be concise (< 10 words)
 
 ### Cross-References
-- **Luôn có ít nhất 1 cross-reference** (thường là doc parent/architecture)
-- Relation phải rõ ràng: "Parent flow", "Input source", "Uses this module", "See also"
-- Dùng relative links: `[00-architecture](00-architecture.md)`
+- **Always have at least 1 cross-reference** (usually parent/architecture doc)
+- Relation must be clear: "Parent flow", "Input source", "Uses this module", "See also"
+- Use relative links: `[00-architecture](00-architecture.md)`
 
 ---
 
 ## Token budget
 
-| Phần | Token ước lượng |
-|------|----------------|
+| Part | Estimated tokens |
+|------|-----------------|
 | Overview | 30-50 |
 | Diagram | 50-100 |
-| Mỗi section với table | 80-150 |
+| Each section with table | 80-150 |
 | File Reference | 50-100 |
 | Cross-References | 30-60 |
 | **Total target** | **800-1500** |
 
-Giữ tổng doc trong khoảng này để vừa 1 RAG chunk.
+Keep total doc within this range to fit in one RAG chunk.
