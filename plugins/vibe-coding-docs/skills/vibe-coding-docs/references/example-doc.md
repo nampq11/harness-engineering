@@ -7,6 +7,16 @@ This is an example of a complete document, based on a real example from the vibe
 ## Example: 02-ingest-worker.md
 
 ```markdown
+---
+title: 'Ingest Worker'
+summary: 'Cloudflare Worker handles content ingestion: receives URLs/text, fetches content, generates AI recap, uploads media, pushes to GitHub. This worker is the core processing layer between input sources and storage.'
+read_when:
+  - onboarding to the codebase
+  - implementing ingestion features
+  - debugging content processing
+  - integrating input sources
+---
+
 # 02-ingest-worker
 
 Cloudflare Worker handles content ingestion: receives URLs/text,
@@ -88,10 +98,11 @@ Worker fetches content from multiple sources:
 
 | Criteria | ✅ Achieved |
 |---------|-----------|
+| Complete frontmatter | `title`, `summary`, `read_when` all present and accurate |
 | Clear overview | 2 sentences, describes role in system |
 | Has diagram | Flowchart TB, 7 clear nodes |
 | Tables for config | Queue config in table, not prose |
 | Complete File Reference | 5 files with clear purposes |
 | Cross-References with context | Not just links but explains relations |
-| Token count | ~950 tokens — fits in 1 RAG chunk |
+| Token count | ~1050 tokens (including frontmatter) — fits in 1 RAG chunk |
 | Single responsibility | Can be described in 1 sentence without "and" |

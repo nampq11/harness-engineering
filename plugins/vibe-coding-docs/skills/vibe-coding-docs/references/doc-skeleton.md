@@ -7,6 +7,13 @@ This is the standard skeleton for every document in the vibe coding docs system.
 ## Template
 
 ```markdown
+---
+title: '{auto-derived from NN-domain-name}'
+summary: '{auto-extracted from overview section}'
+read_when:
+  - {smart defaults based on doc type}
+---
+
 # NN-domain-name
 
 {2-3 sentence description: what this is, why it exists in this system.
@@ -57,6 +64,38 @@ flowchart TB
 
 ---
 
+## Frontmatter fields
+
+### `title`
+Auto-derived from filename. Strip number prefix, convert kebab-case to Title Case.
+
+| Filename | Title |
+|----------|-------|
+| `02-ingest-worker.md` | `Ingest Worker` |
+| `00-architecture-overview.md` | `Architecture Overview` |
+| `08-deployment.md` | `Deployment` |
+| `05-auth-service.md` | `Auth Service` |
+
+### `summary`
+Auto-extracted from the overview section (first 2-3 sentences). Keep it concise so AI agents can quickly understand what the document covers.
+
+### `read_when`
+List of scenarios when an AI agent should read this document. Use smart defaults based on doc position/pattern, but customize for special cases.
+
+| Doc number/pattern | Default `read_when` scenarios |
+|--------------------|-------------------------------|
+| `00-*` (architecture) | onboarding to the codebase, understanding system design |
+| `01-03-*` (core flows) | implementing features, modifying core behavior |
+| `04-06-*` (services/data) | integrating services, debugging data issues |
+| `07-*` (frontend) | building UI, modifying components |
+| `08-*` (deployment) | deploying, configuring environments |
+| Contains "test" | writing tests, debugging test failures |
+| Contains "api" | consuming APIs, adding endpoints |
+
+**Example customization**: If `02-ingest-worker.md` is also used for webhook debugging, add `- debugging webhook failures` to `read_when`.
+
+---
+
 ## Section-by-section guide
 
 ### Overview (2-3 sentences)
@@ -94,11 +133,12 @@ flowchart TB
 
 | Part | Estimated tokens |
 |------|-----------------|
+| Frontmatter | 50-100 |
 | Overview | 30-50 |
 | Diagram | 50-100 |
 | Each section with table | 80-150 |
 | File Reference | 50-100 |
 | Cross-References | 30-60 |
-| **Total target** | **800-1500** |
+| **Total target** | **850-1550** |
 
 Keep total doc within this range to fit in one RAG chunk.

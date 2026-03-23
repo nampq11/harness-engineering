@@ -66,6 +66,13 @@ The numbering reflects dependency: 00 is foundation (depended on by most things)
 Each doc MUST follow this skeleton (see `references/doc-skeleton.md`):
 
 ```markdown
+---
+title: '{auto-derived from NN-domain-name}'
+summary: '{auto-extracted from overview section}'
+read_when:
+  - {smart defaults based on doc type}
+---
+
 # NN-domain-name
 
 {2-3 sentence overview: what this is, why it exists}
@@ -90,8 +97,44 @@ Each doc MUST follow this skeleton (see `references/doc-skeleton.md`):
 
 **Important rules:**
 - Config values, parameters, routes → **always use tables**, don't bury in prose
-- Keep each doc at **800–1500 tokens** to fit in one RAG chunk
+- Keep each doc at **850–1550 tokens** (includes frontmatter) to fit in one RAG chunk
 - Always include **Cross-References** so AI can navigate between docs
+
+### Step 3.5: Add frontmatter to each doc
+
+Every doc must begin with YAML frontmatter:
+
+```yaml
+---
+title: 'Derived from filename (e.g., 02-ingest-worker.md → Ingest Worker)'
+summary: 'Extracted from overview section (first 2-3 sentences)'
+read_when:
+  - scenario from smart defaults
+  - additional scenarios if needed
+---
+```
+
+**Frontmatter field generation:**
+
+| Field | Source |
+|-------|--------|
+| `title` | Auto-derived from filename: strip number prefix, convert kebab-case to Title Case |
+| `summary` | Auto-extracted from the overview section (first 2-3 sentences) |
+| `read_when` | Smart defaults based on doc position, customize when needed |
+
+**`read_when` smart defaults:**
+
+| Doc number/pattern | Default scenarios |
+|--------------------|-------------------|
+| `00-*` (architecture) | onboarding to the codebase, understanding system design |
+| `01-03-*` (core flows) | implementing features, modifying core behavior |
+| `04-06-*` (services/data) | integrating services, debugging data issues |
+| `07-*` (frontend) | building UI, modifying components |
+| `08-*` (deployment) | deploying, configuring environments |
+| Contains "test" | writing tests, debugging test failures |
+| Contains "api" | consuming APIs, adding endpoints |
+
+Customize `read_when` for special cases. Example: if `02-ingest-worker.md` is also used for webhook debugging, add `- debugging webhook failures`.
 
 ### Step 4: Create SITE.md (index)
 
@@ -100,6 +143,7 @@ SITE.md is the map so AI knows where to find what. See template at `references/s
 ### Step 5: Validate
 
 Checklist before finishing:
+- [ ] Each doc has YAML frontmatter with `title`, `summary`, `read_when`?
 - [ ] Each doc has 2-3 sentence overview?
 - [ ] Each doc has Mermaid diagram?
 - [ ] Config/data in tables, not in prose?
