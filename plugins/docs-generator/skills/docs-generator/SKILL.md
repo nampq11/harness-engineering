@@ -1,9 +1,9 @@
 ---
-name: vibe-coding-docs
-description: "Write, organize, and refactor documentation for vibe coding projects optimized for both humans and AI agents (Cursor, Claude Code, etc.). Use this skill WHENEVER the user wants to: create docs for a new project, refactor old docs, asks \"AI doesn't understand my codebase\", asks about writing context for AI, or mentions \"documentation\", \"context for AI\", \"vibe coding docs\", \"structured docs\", \"docs for Cursor/Claude Code\". Trigger even when the user just says \"help me write docs\", \"AI keeps answering wrong\", or \"need to document codebase\"."
+name: docs-generator
+description: "Write, organize, and refactor documentation optimized for both humans and AI agents (Cursor, Claude Code, etc.). Use this skill WHENEVER the user wants to: create docs for a new project, refactor old docs, asks \"AI doesn't understand my codebase\", asks about writing context for AI, or mentions \"documentation\", \"context for AI\", \"structured docs\", \"docs for Cursor/Claude Code\". Trigger even when the user just says \"help me write docs\", \"AI keeps answering wrong\", or \"need to document codebase\"."
 ---
 
-# Vibe Coding Docs Skill
+# Docs Generator Skill
 
 This skill helps create structured documentation for vibe coding projects, optimized for both humans and AI agents (Cursor, Claude Code, Windsurf, etc.) to navigate and extract accurate information.
 

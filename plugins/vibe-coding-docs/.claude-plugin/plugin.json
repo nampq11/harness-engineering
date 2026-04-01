@@ -1,8 +1,0 @@
-{
-  "name": "vibe-coding-docs",
-  "description": "Write, organize, and refactor documentation for vibe coding projects optimized for both humans and AI agents (Cursor, Claude Code, etc.)",
-  "version": "1.0.0",
-  "author": {
-    "name": "nampham1106"
-  }
-}

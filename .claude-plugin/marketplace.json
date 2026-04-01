@@ -35,16 +35,16 @@
       "keywords": ["claude-md", "instructions", "important-if", "claude-code"]
     },
     {
-      "name": "vibe-coding-docs",
-      "description": "Write, organize, and refactor documentation for vibe coding projects optimized for both humans and AI agents (Cursor, Claude Code, etc.)",
+      "name": "docs-generator",
+      "description": "Write, organize, and refactor documentation optimized for both humans and AI agents (Cursor, Claude Code, etc.)",
       "version": "1.0.0",
       "author": {
         "name": "nampham1106",
         "email": "nampham11062002@gmail.com"
       },
-      "source": "./plugins/vibe-coding-docs",
+      "source": "./plugins/docs-generator",
       "category": "productivity",
-      "keywords": ["documentation", "docs", "vibe-coding", "ai-context", "cursor", "claude-code", "structured-docs"]
+      "keywords": ["documentation", "docs", "ai-context", "cursor", "claude-code", "structured-docs"]
     }
   ]
 }
