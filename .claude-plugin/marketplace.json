@@ -45,6 +45,18 @@
       "source": "./plugins/docs-generator",
       "category": "productivity",
       "keywords": ["documentation", "docs", "ai-context", "cursor", "claude-code", "structured-docs"]
+    },
+    {
+      "name": "project-management",
+      "description": "AI-powered project management toolkit: generate PRDs from validated ideas, break down PRDs into sprint-based development tasks with dependency analysis",
+      "version": "1.0.0",
+      "author": {
+        "name": "nampham1106",
+        "email": "nampham11062002@gmail.com"
+      },
+      "source": "./plugins/project-management",
+      "category": "productivity",
+      "keywords": ["project-management", "prd", "tasks", "sprint", "agile", "planning", "dependency-analysis"]
     }
   ]
 }
